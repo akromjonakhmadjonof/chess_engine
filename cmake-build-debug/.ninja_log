@@ -1,0 +1,20 @@
+# ninja log v6
+5	178	1775497020552368651	CMakeFiles/chess_engine.dir/src/board/Board.cpp.o	14c58e627018532e
+4	620	1775497020551407943	CMakeFiles/chess_engine.dir/main.cpp.o	3b41d53921965415
+686	795	1775497021233079007	chess_engine	42b2d33ff6f1ccba
+5	685	1775497020552681026	CMakeFiles/chess_engine.dir/src/renderer/Renderer.cpp.o	3e131ffdc1ea7300
+5	625	1775497020552530901	CMakeFiles/chess_engine.dir/src/game/Game.cpp.o	ab8280bd3487eecf
+1	57	1775497423598104226	build.ninja	951252eb6e77225c
+1	72	1775497423598104226	build.ninja	951252eb6e77225c
+8	198	1775497423614488939	CMakeFiles/chess_engine.dir/src/piece/Piece.cpp.o	77a84533bed42bf6
+8	198	1775497423615106356	CMakeFiles/chess_engine.dir/src/piece/Rook.cpp.o	609365de04ca9b7
+8	199	1775497423614638147	CMakeFiles/chess_engine.dir/src/piece/Pawn.cpp.o	40267c9ecd4f2ceb
+198	232	1775497423804311159	CMakeFiles/chess_engine.dir/src/piece/Queen.cpp.o	360573de5224d376
+199	239	1775497423805573742	CMakeFiles/chess_engine.dir/src/board/Board.cpp.o	14c58e627018532e
+8	259	1775497423614955731	CMakeFiles/chess_engine.dir/src/piece/Bishop.cpp.o	1ec6e25044c2c4e0
+8	261	1775497423614767314	CMakeFiles/chess_engine.dir/src/piece/Knight.cpp.o	95ed5b2c024b1a75
+199	275	1775497423805149409	CMakeFiles/chess_engine.dir/src/piece/King.cpp.o	d9ac94baf4486449
+7	826	1775497423614162272	CMakeFiles/chess_engine.dir/main.cpp.o	3b41d53921965415
+232	831	1775497423838740752	CMakeFiles/chess_engine.dir/src/game/Game.cpp.o	ab8280bd3487eecf
+239	888	1775497423845234003	CMakeFiles/chess_engine.dir/src/renderer/Renderer.cpp.o	3e131ffdc1ea7300
+888	1011	1775497424494783892	chess_engine	f3faa4cd6b8c406f
