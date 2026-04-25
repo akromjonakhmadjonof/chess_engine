@@ -4,17 +4,17 @@
 
 int AI::pieceValue(PieceType type) {
     switch (type) {
-        case PieceType::Pawn:   return 100;
+        case PieceType::Pawn: return 100;
         case PieceType::Knight: return 320;
         case PieceType::Bishop: return 330;
-        case PieceType::Rook:   return 500;
-        case PieceType::Queen:  return 900;
-        case PieceType::King:   return 20000;
-        default:                return 0;
+        case PieceType::Rook: return 500;
+        case PieceType::Queen: return 900;
+        case PieceType::King: return 20000;
+        default: return 0;
     }
 }
 
-int AI::evaluate(const Board& board, PieceColor aiColor) {
+int AI::evaluate(const Board &board, PieceColor aiColor) {
     int score = 0;
     for (int r = 0; r < 8; r++) {
         for (int c = 0; c < 8; c++) {
@@ -35,8 +35,9 @@ int AI::minimax(Board board, int depth, int alpha, int beta, bool maximizing, Pi
     if (board.isStalemate(sideToMove)) return 0;
     if (depth == 0) return evaluate(board, aiColor);
 
-    int best = maximizing ? std::numeric_limits<int>::min()
-                          : std::numeric_limits<int>::max();
+    int best = maximizing
+                   ? std::numeric_limits<int>::min()
+                   : std::numeric_limits<int>::max();
     bool pruned = false;
 
     for (int fr = 0; fr < 8 && !pruned; fr++) {
@@ -54,7 +55,7 @@ int AI::minimax(Board board, int depth, int alpha, int beta, bool maximizing, Pi
                     int score = minimax(next, depth - 1, alpha, beta, !maximizing, aiColor);
 
                     if (maximizing) {
-                        best  = std::max(best, score);
+                        best = std::max(best, score);
                         alpha = std::max(alpha, best);
                     } else {
                         best = std::min(best, score);
@@ -68,12 +69,12 @@ int AI::minimax(Board board, int depth, int alpha, int beta, bool maximizing, Pi
     return best;
 }
 
-std::optional<Move> AI::getBestMove(const Board& board, PieceColor color, int depth) {
+std::optional<Move> AI::getBestMove(const Board &board, PieceColor color, int depth) {
     Move bestMove{{-1, -1}, {-1, -1}};
     int bestScore = std::numeric_limits<int>::min();
-    int alpha     = std::numeric_limits<int>::min();
-    int beta      = std::numeric_limits<int>::max();
-    bool found    = false;
+    int alpha = std::numeric_limits<int>::min();
+    int beta = std::numeric_limits<int>::max();
+    bool found = false;
 
     for (int fr = 0; fr < 8; fr++) {
         for (int fc = 0; fc < 8; fc++) {
@@ -90,8 +91,8 @@ std::optional<Move> AI::getBestMove(const Board& board, PieceColor color, int de
                     int score = minimax(next, depth - 1, alpha, beta, false, color);
                     if (score > bestScore) {
                         bestScore = score;
-                        bestMove  = {{fr, fc}, {tr, tc}};
-                        found     = true;
+                        bestMove = {{fr, fc}, {tr, tc}};
+                        found = true;
                     }
                     alpha = std::max(alpha, score);
                 }
