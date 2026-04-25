@@ -1,0 +1,15 @@
+cmake-build-*/
+build/
+
+# IDE
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Compiled
+*.o
+*.out
+*.exe
