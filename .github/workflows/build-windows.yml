@@ -17,13 +17,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install SFML
-        run: choco install sfml --version=2.6.1 -y
+      - name: Install dependencies
+        run: choco install cmake ninja -y
+
+      - name: Clone and build SFML 3
+        run: |
+          git clone --depth 1 --branch 3.0.0 https://github.com/SFML/SFML.git sfml-src
+          cmake -S sfml-src -B sfml-build `
+            -DCMAKE_BUILD_TYPE=Release `
+            -DBUILD_SHARED_LIBS=OFF
+          cmake --build sfml-build --config Release
+          cmake --install sfml-build --prefix sfml-install
 
       - name: Configure CMake
         run: |
           cmake -B build -S . `
-            -DSFML_DIR="C:/ProgramData/chocolatey/lib/SFML/lib/cmake/SFML"
+            -DCMAKE_BUILD_TYPE=Release `
+            -DSFML_DIR="$PWD/sfml-install/lib/cmake/SFML"
 
       - name: Build
         run: cmake --build build --config Release
