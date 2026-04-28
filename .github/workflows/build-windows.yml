@@ -3,7 +3,11 @@ name: Build Windows
 on:
   push:
     branches: [ master ]
-  workflow_dispatch:  # allows manual trigger
+    paths:
+      - '**.cpp'
+      - '**.h'
+      - 'CMakeLists.txt'
+      - '.github/workflows/**'
 
 jobs:
   build-windows:
@@ -24,9 +28,8 @@ jobs:
       - name: Build
         run: cmake --build build --config Release
 
-      - name: Upload .exe artifact
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: chess_engine_windows
-          path: |
-            build/Release/chess_engine.exe
+          path: build/Release/chess_engine.exe
