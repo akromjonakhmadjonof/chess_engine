@@ -94,3 +94,4 @@ This chess engine allows users to play as White against a basic AI opponent. It 
 ## Chess Engine Paper
 https://docs.google.com/document/d/1IaiYV6u4O2_QWNLBb14aCFSdq01wVrZQd3WghO9Onl4
 
+https://canva.link/ujnjwfgd3uquj3z
