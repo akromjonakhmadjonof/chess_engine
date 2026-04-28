@@ -1,0 +1,32 @@
+name: Build Windows
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:  # allows manual trigger
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install SFML
+        run: choco install sfml --version=2.6.1 -y
+
+      - name: Configure CMake
+        run: |
+          cmake -B build -S . `
+            -DSFML_DIR="C:/ProgramData/chocolatey/lib/SFML/lib/cmake/SFML"
+
+      - name: Build
+        run: cmake --build build --config Release
+
+      - name: Upload .exe artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: chess_engine_windows
+          path: |
+            build/Release/chess_engine.exe
