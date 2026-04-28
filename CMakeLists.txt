@@ -21,6 +21,15 @@ add_executable(chess_engine
 )
 
 target_include_directories(chess_engine PRIVATE ${CMAKE_SOURCE_DIR}/src)
-target_link_libraries(chess_engine SFML::Graphics SFML::Window SFML::System)
 
-file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR})
+target_link_libraries(chess_engine
+        SFML::Graphics
+        SFML::Window
+        SFML::System
+)
+
+add_custom_command(TARGET chess_engine POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_SOURCE_DIR}/assets
+        $<TARGET_FILE_DIR:chess_engine>/assets
+)
