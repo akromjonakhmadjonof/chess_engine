@@ -10,7 +10,7 @@ add_executable(chess_engine
         src/piece/Piece.cpp
         src/piece/Pawn.cpp
         src/piece/Knight.cpp
-        src/ai/ai.cpp
+        src/ai/Ai.cpp
         src/piece/Bishop.cpp
         src/piece/Rook.cpp
         src/piece/Queen.cpp

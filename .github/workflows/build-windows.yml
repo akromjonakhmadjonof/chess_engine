@@ -1,0 +1,38 @@
+name: Build Windows
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - '**.cpp'
+      - '**.h'
+      - 'CMakeLists.txt'
+      - '.github/workflows/**'
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Clone and build SFML 3
+        run: |
+          git clone --depth 1 --branch 3.0.0 https://github.com/SFML/SFML.git sfml-src
+          cmake -S sfml-src -B sfml-build -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+          cmake --build sfml-build --config Release
+          cmake --install sfml-build --prefix sfml-install
+
+      - name: Configure CMake
+        run: |
+          cmake -B build -S . -DCMAKE_BUILD_TYPE=Release -DSFML_DIR="$PWD/sfml-install/lib/cmake/SFML" -DSFML_STATIC_LIBRARIES=ON
+
+      - name: Build
+        run: cmake --build build --config Release
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: chess_engine_windows
+          path: build/Release/chess_engine.exe
