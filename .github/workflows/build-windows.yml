@@ -17,18 +17,34 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Clone and build SFML 3
-        run: |
-          git clone --depth 1 --branch 3.0.0 https://github.com/SFML/SFML.git sfml-src
-          cmake -S sfml-src -B sfml-build -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5
-          cmake --build sfml-build --config Release
-          cmake --install sfml-build --prefix sfml-install
+      - name: Clone SFML 3
+        run: git clone --depth 1 --branch 3.0.0 https://github.com/SFML/SFML.git sfml-src
 
-      - name: Configure CMake
-        run: |
-          cmake -B build -S . -DCMAKE_BUILD_TYPE=Release -DSFML_DIR="$PWD/sfml-install/lib/cmake/SFML" -DSFML_STATIC_LIBRARIES=ON
+      - name: Configure SFML
+        run: >
+          cmake -S sfml-src -B sfml-build
+          -G "Visual Studio 17 2022"
+          -A x64
+          -DCMAKE_BUILD_TYPE=Release
+          -DBUILD_SHARED_LIBS=OFF
+          -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
-      - name: Build
+      - name: Build SFML
+        run: cmake --build sfml-build --config Release
+
+      - name: Install SFML
+        run: cmake --install sfml-build --prefix "${{ github.workspace }}/sfml-install"
+
+      - name: Configure Project
+        run: >
+          cmake -S . -B build
+          -G "Visual Studio 17 2022"
+          -A x64
+          -DCMAKE_BUILD_TYPE=Release
+          -DSFML_DIR="${{ github.workspace }}/sfml-install/lib/cmake/SFML"
+          -DSFML_STATIC_LIBRARIES=ON
+
+      - name: Build Project
         run: cmake --build build --config Release
 
       - name: Upload artifact
