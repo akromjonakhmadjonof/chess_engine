@@ -1,7 +1,7 @@
 #include "game/Game.h"
 
 Game::Game()
-    : window(sf::VideoMode({640, 640}), "Chess") {
+    : window(sf::VideoMode({640, 640}), "Min Max Chess") {
 }
 
 void Game::run() {
@@ -16,7 +16,7 @@ void Game::handleInput() {
         if (event->is<sf::Event::Closed>())
             window.close();
 
-        if (auto* mouseEvent = event->getIf<sf::Event::MouseButtonPressed>()) {
+        if (auto *mouseEvent = event->getIf<sf::Event::MouseButtonPressed>()) {
             if (mouseEvent->button == sf::Mouse::Button::Left) {
                 int col = mouseEvent->position.x / TILE;
                 int row = mouseEvent->position.y / TILE;
