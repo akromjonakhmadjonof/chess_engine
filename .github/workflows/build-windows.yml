@@ -17,15 +17,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: choco install cmake ninja -y
-
       - name: Clone and build SFML 3
         run: |
           git clone --depth 1 --branch 3.0.0 https://github.com/SFML/SFML.git sfml-src
           cmake -S sfml-src -B sfml-build `
             -DCMAKE_BUILD_TYPE=Release `
-            -DBUILD_SHARED_LIBS=OFF
+            -DBUILD_SHARED_LIBS=OFF `
+            -DCMAKE_POLICY_VERSION_MINIMUM=3.5
           cmake --build sfml-build --config Release
           cmake --install sfml-build --prefix sfml-install
 
