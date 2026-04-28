@@ -20,18 +20,13 @@ jobs:
       - name: Clone and build SFML 3
         run: |
           git clone --depth 1 --branch 3.0.0 https://github.com/SFML/SFML.git sfml-src
-          cmake -S sfml-src -B sfml-build `
-            -DCMAKE_BUILD_TYPE=Release `
-            -DBUILD_SHARED_LIBS=OFF `
-            -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+          cmake -S sfml-src -B sfml-build -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5
           cmake --build sfml-build --config Release
           cmake --install sfml-build --prefix sfml-install
 
       - name: Configure CMake
         run: |
-          cmake -B build -S . `
-            -DCMAKE_BUILD_TYPE=Release `
-            -DSFML_DIR="$PWD/sfml-install/lib/cmake/SFML"
+          cmake -B build -S . -DCMAKE_BUILD_TYPE=Release -DSFML_DIR="$PWD/sfml-install/lib/cmake/SFML" -DSFML_STATIC_LIBRARIES=ON
 
       - name: Build
         run: cmake --build build --config Release
